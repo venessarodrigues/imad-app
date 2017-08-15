@@ -8,9 +8,9 @@ element.innerHTML='hello';
 
 //move an image
 
-var img=document.getELementById('img');
-img.onclick = function()
+var img=document.getElementById('img');
+img.onclick = function ()
 {
-    img.style.marginLeft='500px';
+    img.style.marginLeft = '500px';
     
 };
