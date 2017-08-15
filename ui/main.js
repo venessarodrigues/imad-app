@@ -22,21 +22,22 @@ img.onclick = function ()
 var button=document.getElementById('counter');
 button.onclick=function(){
     
-var request=new XMLHttpRequest();
-request.onreadystatechange = function(){
-   if(request.onreadystate === XMLHttpRequest.DONE)
-   {
-       if(request.readystatus === 200)
+    var request=new XMLHttpRequest();
+    request.onreadystatechange = function()
+    {
+       if(request.readystate === XMLHttpRequest.DONE)
        {
-           var counter=request.responseText;
-           var count=document.getElementById('count');
-           count.innerHTML=counter.toString();
+           if(request.readystatus === 200)
+           {
+               var counter=request.responseText;
+               var count=document.getElementById('count');
+               count.innerHTML=counter.toString();
+           }
        }
-   }
-};
-
-
-
-request.open('GET','http://venessardrgs4.imad.hasura-app.io/',true);
-request.send(null);
+    };
+    
+    
+    
+    request.open('GET','http://venessardrgs4.imad.hasura-app.io/',true);
+    request.send(null);
 };
