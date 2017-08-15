@@ -27,7 +27,7 @@ button.onclick=function(){
     {
        if(request.readyState === XMLHttpRequest.DONE)
        {
-           if(request.readystatus === 200)
+           if(request.status === 200)
            {
                var counter=request.responseText;
                var count=document.getElementById('count');
