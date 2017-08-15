@@ -4,7 +4,7 @@ console.log('Loaded!');
 //change content of html 
 
 var element=document.getElementById('main-text');
-element.innerHTML='hello';
+element.innerHTML='Venessa MAria Rodrigues';
 
 //move an image
 var moveLeft=0;
