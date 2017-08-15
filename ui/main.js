@@ -19,10 +19,20 @@ img.onclick = function ()
     var interval=setInterval(moveRight,100);
     
 };*/
-var counter=0;
-var button=document.getElementById('counter');
-button.onclick=function(){
-  counter=counter+1;
-  var count=document.getElementById('count');
-  count.innerHTML=counter.toString();
+
+var request=new XMLHttpRequest();
+request.onreadystatechange = function(){
+   if(request.onreadystate === XMLHttpRequest.DONE)
+   {
+       if(request.readystatus === 200)
+       {
+           var counter=request.responseText;
+           var count=document.getElementById('count');
+           count.innerHTML=counter.toString();
+       }
+   }
 };
+
+
+request.open('GET','http://venessardrgs4.imad.hasura-app.io/',true);
+request.send('NULL');
