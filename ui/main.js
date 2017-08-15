@@ -35,4 +35,4 @@ request.onreadystatechange = function(){
 
 
 request.open('GET','http://venessardrgs4.imad.hasura-app.io/',true);
-request.send('NULL');
+request.send(null);
