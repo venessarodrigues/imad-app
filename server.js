@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var pool = require('pg').Pool;
 var crypto = require('crypto');
+var bodyparser=require('body-parser');
 var config ={
     user:'venessardrgs4',
     database:'venessardrgs4',
@@ -12,6 +13,7 @@ var config ={
 };
 var app = express();
 app.use(morgan('combined'));
+app.use(bodyparser.json());
 var articles={
      'article-one':{
         title: 'article-one | venessa',
@@ -89,6 +91,22 @@ app.get('/submit-name', function (req, res) {
   var name=req.query.name;
   names.push(name);
   res.send(JSON.stringify(names));
+});
+app.post('/create-user',function(req,res){
+    var username=req.body.username;
+    var password=req.body.password;
+    var salt=crypto.randomBytes(128).toString('hex');
+    var dbstring=hash(password,salt);
+    pool.query('Insert into "user" (username,password) values ($1,$2)',[username,password],function(err,result){
+         if(err)
+        {
+            res.status(500).send(err.toString());
+        }
+        else
+        {
+            res.send('user entered successfully: '+ username);
+        }
+    });
 });
 var pool=new pool(config);
 app.get('/test-db',function(req,res){
