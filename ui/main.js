@@ -47,7 +47,7 @@ submit.onclick=function()
     var username=document.getElementById('username').value;
     var password=document.getElementById('password').value;
     console.log(username,password);
-    request.setRequestHeader('content-type','application/json');
+    request.setRequestHeader('Content-Type','application/json');
     request.open('POST','http://venessardrgs4.imad.hasura-app.io/login',true);
     request.send(JSON.stringify({username:username,password:password}));
 };
