@@ -30,7 +30,6 @@ submit.onclick=function()
        {
            if(request.status === 200)
            {
-               console.log('user looged in');
                alert('logged successfully');
            }
            else if(request.status===403)
