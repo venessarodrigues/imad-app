@@ -4,6 +4,7 @@ var path = require('path');
 var pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyparser=require('body-parser');
+var session=require('express-session');
 var config ={
     user:'venessardrgs4',
     database:'venessardrgs4',
@@ -14,6 +15,10 @@ var config ={
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyparser.json());
+app.use(session({
+    secret:'soemscretcode',
+    cookie:{maxAge:1000*60*60*24*30}
+}));
 var articles={
      'article-one':{
         title: 'article-one | venessa',
@@ -130,6 +135,8 @@ app.post('/login',function(req,res)
                 var hashed=hash(password,salt);
                 if(hashed===dbstring)
                 {
+                    //create session
+                    req.session.auth={userid:result.rows[0].id};
                   res.send('credentials valid');  
                 }
                 else
@@ -140,6 +147,20 @@ app.post('/login',function(req,res)
             
         }
     });
+});
+app.get('/check-login',function(req,res){
+   if(req.session && req.session.auth && req.session.auth.userid)
+   {
+       res.send('logged in: ' + req.session.auth.userid.toString());
+   }
+   else
+   {
+       res.send('not logged in');
+   }
+});
+app.get('/logout',function(req,res){
+   delete req.session.auth;
+   res.send('logged out sucessfully');
 });
 var pool=new pool(config);
 app.get('/test-db',function(req,res){
